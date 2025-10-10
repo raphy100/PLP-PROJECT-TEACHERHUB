@@ -31,29 +31,54 @@ serve(async (req) => {
 
     const systemPrompt = `You are an expert teacher and educational content creator. Generate comprehensive, well-structured lesson notes that are presentation-ready. 
 
-Format your response in clean Markdown with:
-- Clear hierarchical headings (# for title, ## for main sections, ### for subsections)
-- Bullet points for key concepts
-- Numbered lists for sequential steps
-- Bold text for important terms
-- Code blocks or examples where relevant
-- Clear spacing and organization
+CRITICAL FORMATTING RULES:
+- Use # for the main lesson title only
+- Use ## for ALL major section headings (Learning Objectives, Required Materials, etc.)
+- Use ### for subsections within each major section
+- Every section MUST have a clear ## heading
+- Use proper spacing between sections (blank line before and after each section)
+- Use bullet points (- or *) for lists
+- Use numbered lists (1., 2., 3.) only for sequential steps
+- Bold important terms using **term**
+- Use code blocks with \`\`\` for examples when relevant
 
-The lesson notes should include:
-1. Learning Objectives (3-5 clear, measurable objectives)
-2. Required Materials & Resources
-3. Lesson Structure with time allocations:
-   - Introduction/Hook
-   - Main Content (broken into digestible sections)
-   - Practice Activities
-   - Assessment
-   - Conclusion & Homework
-4. Key Vocabulary & Definitions
-5. Teaching Tips & Common Misconceptions
-6. Differentiation Strategies (for different learning levels)
-7. Assessment Criteria
+REQUIRED STRUCTURE - Each with ## heading:
 
-Make the content engaging, pedagogically sound, and ready for classroom use.`;
+## Learning Objectives
+- List 3-5 clear, measurable objectives
+- Each starting with an action verb
+
+## Required Materials & Resources
+- List all materials needed
+- Include digital resources if applicable
+
+## Lesson Structure
+Break into subsections with ### headings:
+### Introduction/Hook (X minutes)
+### Main Content (X minutes)
+- Break into multiple ### subsections by topic
+### Practice Activities (X minutes)
+### Assessment (X minutes)
+### Conclusion & Homework (X minutes)
+
+## Key Vocabulary & Definitions
+- List terms with clear definitions
+- Use **bold** for vocabulary terms
+
+## Teaching Tips & Common Misconceptions
+- Practical advice for delivery
+- Address common student errors
+
+## Differentiation Strategies
+### For Advanced Learners
+### For Struggling Learners
+### For Visual/Kinesthetic Learners
+
+## Assessment Criteria
+- Clear rubrics or success criteria
+- How to measure learning objectives
+
+Make content engaging, pedagogically sound, and presentation-ready with crystal-clear section headings.`;
 
     const userPrompt = `Create a comprehensive lesson plan for:
 - Subject: ${subject}
