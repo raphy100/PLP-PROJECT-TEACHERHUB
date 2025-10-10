@@ -10,6 +10,8 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { GraduationCap, Home, FileText, Sparkles, Download, Save, Copy } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
+import ReactMarkdown from 'react-markdown';
 
 const LessonGenerator = () => {
   const [subject, setSubject] = useState("");
@@ -21,44 +23,54 @@ const LessonGenerator = () => {
   const [generatedLesson, setGeneratedLesson] = useState("");
   const { toast } = useToast();
 
-  const handleGenerate = () => {
+  const handleGenerate = async () => {
     setIsGenerating(true);
-    // Simulate AI generation
-    setTimeout(() => {
-      setGeneratedLesson(`# ${topic} - Lesson Plan
-
-## Learning Objectives
-- Understand the fundamental concepts of ${topic}
-- Apply knowledge through practical examples
-- Develop problem-solving skills
-
-## Materials Needed
-- Textbook Chapter references
-- Practice worksheets
-- Digital resources
-
-## Lesson Structure
-
-### Introduction (10 minutes)
-Begin with a real-world example to engage students...
-
-### Main Content (${duration} minutes)
-Detailed explanation of core concepts...
-
-### Practice Activities (15 minutes)
-Interactive exercises and group work...
-
-### Conclusion (5 minutes)
-Review key points and assign homework...
-
-## Assessment
-Quiz questions and homework assignments included.`);
-      setIsGenerating(false);
-      toast({
-        title: "Lesson generated!",
-        description: "Your AI-powered lesson notes are ready.",
+    setGeneratedLesson("");
+    
+    try {
+      const { data, error } = await supabase.functions.invoke('generate-lesson', {
+        body: {
+          subject,
+          topic,
+          gradeLevel,
+          duration: duration || null,
+          additionalNotes: additionalNotes || null,
+        }
       });
-    }, 2000);
+
+      if (error) {
+        console.error("Error generating lesson:", error);
+        toast({
+          title: "Generation failed",
+          description: error.message || "Failed to generate lesson notes. Please try again.",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      if (data?.lesson) {
+        setGeneratedLesson(data.lesson);
+        toast({
+          title: "Lesson generated!",
+          description: "Your comprehensive lesson notes are ready.",
+        });
+      } else {
+        toast({
+          title: "No content received",
+          description: "Please try again.",
+          variant: "destructive",
+        });
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      toast({
+        title: "Error",
+        description: "An unexpected error occurred. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsGenerating(false);
+    }
   };
 
   return (
@@ -237,10 +249,23 @@ Quiz questions and homework assignments included.`);
             </CardHeader>
             <CardContent>
               {generatedLesson ? (
-                <div className="prose prose-sm max-w-none bg-muted/30 p-6 rounded-lg border">
-                  <pre className="whitespace-pre-wrap font-sans text-sm">
+                <div className="prose prose-slate max-w-none bg-card p-6 rounded-lg border">
+                  <ReactMarkdown
+                    components={{
+                      h1: ({children}) => <h1 className="text-3xl font-bold mb-4 text-foreground border-b pb-2">{children}</h1>,
+                      h2: ({children}) => <h2 className="text-2xl font-semibold mt-6 mb-3 text-foreground">{children}</h2>,
+                      h3: ({children}) => <h3 className="text-xl font-semibold mt-4 mb-2 text-foreground">{children}</h3>,
+                      p: ({children}) => <p className="mb-3 text-foreground leading-relaxed">{children}</p>,
+                      ul: ({children}) => <ul className="list-disc pl-6 mb-3 space-y-1">{children}</ul>,
+                      ol: ({children}) => <ol className="list-decimal pl-6 mb-3 space-y-1">{children}</ol>,
+                      li: ({children}) => <li className="text-foreground">{children}</li>,
+                      strong: ({children}) => <strong className="font-semibold text-primary">{children}</strong>,
+                      code: ({children}) => <code className="bg-muted px-1.5 py-0.5 rounded text-sm font-mono">{children}</code>,
+                      pre: ({children}) => <pre className="bg-muted p-4 rounded-lg overflow-x-auto mb-3">{children}</pre>,
+                    }}
+                  >
                     {generatedLesson}
-                  </pre>
+                  </ReactMarkdown>
                 </div>
               ) : (
                 <div className="flex flex-col items-center justify-center h-96 text-center">
@@ -248,7 +273,7 @@ Quiz questions and homework assignments included.`);
                   <h3 className="text-lg font-semibold mb-2">No lesson generated yet</h3>
                   <p className="text-sm text-muted-foreground max-w-sm">
                     Fill in the lesson details on the left and click "Generate Lesson" to create
-                    AI-powered lesson notes
+                    comprehensive AI-powered lesson notes
                   </p>
                 </div>
               )}

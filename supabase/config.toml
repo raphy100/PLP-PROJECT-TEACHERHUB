@@ -1,0 +1,4 @@
+project_id = "zudjbjnuevbfnifrmszi"
+
+[functions.generate-lesson]
+verify_jwt = false
