@@ -10,6 +10,7 @@ import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
 import { GraduationCap, Home, HelpCircle, Sparkles, Download, Plus } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 
 const QuestionGenerator = () => {
   const [subject, setSubject] = useState("");
@@ -21,24 +22,45 @@ const QuestionGenerator = () => {
   const [generatedQuestions, setGeneratedQuestions] = useState<any[]>([]);
   const { toast } = useToast();
 
-  const handleGenerate = () => {
+  const handleGenerate = async () => {
     setIsGenerating(true);
-    // Simulate AI generation
-    setTimeout(() => {
-      const questions = Array.from({ length: parseInt(questionCount) }, (_, i) => ({
-        id: i + 1,
-        question: `Sample question ${i + 1} about ${topic}?`,
-        options: ['A) Option A', 'B) Option B', 'C) Option C', 'D) Option D'],
-        correctAnswer: 'B) Option B',
-        explanation: 'This is the correct answer because...'
-      }));
-      setGeneratedQuestions(questions);
-      setIsGenerating(false);
+    
+    try {
+      const { data, error } = await supabase.functions.invoke('generate-questions', {
+        body: { 
+          subject, 
+          topic, 
+          difficulty, 
+          questionCount: parseInt(questionCount) 
+        }
+      });
+
+      if (error) {
+        console.error("Error generating questions:", error);
+        toast({
+          title: "Error",
+          description: "Failed to generate questions. Please try again.",
+          variant: "destructive",
+        });
+        setIsGenerating(false);
+        return;
+      }
+
+      setGeneratedQuestions(data.questions);
       toast({
         title: "Questions generated!",
-        description: `${questionCount} questions ready for your quiz.`,
+        description: `${data.questions.length} questions ready for your quiz.`,
       });
-    }, 2000);
+    } catch (error) {
+      console.error("Error in question generation:", error);
+      toast({
+        title: "Error",
+        description: "Something went wrong. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsGenerating(false);
+    }
   };
 
   return (

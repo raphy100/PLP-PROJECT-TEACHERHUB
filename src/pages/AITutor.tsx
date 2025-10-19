@@ -5,8 +5,10 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
-import { GraduationCap, Home, Brain, Send, BookOpen, Users } from "lucide-react";
+import { GraduationCap, Home, Brain, Send, BookOpen, Users, Loader2 } from "lucide-react";
 import aiTutorIcon from "@/assets/ai-tutor-icon.png";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
 
 const AITutor = () => {
   const [messages, setMessages] = useState([
@@ -16,22 +18,48 @@ const AITutor = () => {
     },
   ]);
   const [input, setInput] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const { toast } = useToast();
 
-  const handleSend = () => {
-    if (!input.trim()) return;
+  const handleSend = async () => {
+    if (!input.trim() || isLoading) return;
 
     const userMessage = { role: "user", content: input };
     setMessages((prev) => [...prev, userMessage]);
+    const currentInput = input;
     setInput("");
+    setIsLoading(true);
 
-    // Simulate AI response
-    setTimeout(() => {
+    try {
+      const { data, error } = await supabase.functions.invoke('ai-tutor-chat', {
+        body: { message: currentInput }
+      });
+
+      if (error) {
+        console.error("Error calling AI tutor:", error);
+        toast({
+          title: "Error",
+          description: "Failed to get AI response. Please try again.",
+          variant: "destructive",
+        });
+        return;
+      }
+
       const aiResponse = {
         role: "assistant",
-        content: "That's a great question! Let me help you understand that concept better. [This is a demo response - in production, this would connect to a real AI service]",
+        content: data.response,
       };
       setMessages((prev) => [...prev, aiResponse]);
-    }, 1000);
+    } catch (error) {
+      console.error("Error in AI tutor chat:", error);
+      toast({
+        title: "Error",
+        description: "Something went wrong. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const suggestedQuestions = [
@@ -144,11 +172,16 @@ const AITutor = () => {
                   placeholder="Ask me anything about your studies..."
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
-                  onKeyPress={(e) => e.key === "Enter" && handleSend()}
+                  onKeyPress={(e) => e.key === "Enter" && !isLoading && handleSend()}
                   className="flex-1"
+                  disabled={isLoading}
                 />
-                <Button onClick={handleSend} size="icon">
-                  <Send className="h-4 w-4" />
+                <Button onClick={handleSend} size="icon" disabled={isLoading}>
+                  {isLoading ? (
+                    <Loader2 className="h-4 w-4 animate-spin" />
+                  ) : (
+                    <Send className="h-4 w-4" />
+                  )}
                 </Button>
               </div>
             </CardContent>
