@@ -86,37 +86,41 @@ const StudentDashboard = () => {
             </Card>
           </Link>
 
-          <Link to="/community" className="block">
+          <Link to="/student-chat" className="block">
             <Card className="hover:shadow-lg transition-all hover:-translate-y-1 cursor-pointer border-2">
               <CardContent className="pt-6">
                 <div className="w-12 h-12 rounded-xl bg-secondary/10 flex items-center justify-center mb-4">
-                  <Users className="h-6 w-6 text-secondary" />
+                  <MessageSquare className="h-6 w-6 text-secondary" />
                 </div>
-                <h3 className="font-semibold mb-1">Community</h3>
-                <p className="text-sm text-muted-foreground">Join discussions</p>
+                <h3 className="font-semibold mb-1">Community Chat</h3>
+                <p className="text-sm text-muted-foreground">Connect with peers</p>
               </CardContent>
             </Card>
           </Link>
 
-          <Card className="hover:shadow-lg transition-all hover:-translate-y-1 cursor-pointer border-2">
-            <CardContent className="pt-6">
-              <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mb-4">
-                <BookOpen className="h-6 w-6 text-accent" />
-              </div>
-              <h3 className="font-semibold mb-1">My Courses</h3>
-              <p className="text-sm text-muted-foreground">View lessons</p>
-            </CardContent>
-          </Card>
+          <Link to="/student-quiz" className="block">
+            <Card className="hover:shadow-lg transition-all hover:-translate-y-1 cursor-pointer border-2">
+              <CardContent className="pt-6">
+                <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mb-4">
+                  <Award className="h-6 w-6 text-accent" />
+                </div>
+                <h3 className="font-semibold mb-1">Quiz Practice</h3>
+                <p className="text-sm text-muted-foreground">Test your knowledge</p>
+              </CardContent>
+            </Card>
+          </Link>
 
-          <Card className="hover:shadow-lg transition-all hover:-translate-y-1 cursor-pointer border-2">
-            <CardContent className="pt-6">
-              <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
-                <MessageSquare className="h-6 w-6 text-primary" />
-              </div>
-              <h3 className="font-semibold mb-1">Messages</h3>
-              <p className="text-sm text-muted-foreground">3 unread</p>
-            </CardContent>
-          </Card>
+          <Link to="/community" className="block">
+            <Card className="hover:shadow-lg transition-all hover:-translate-y-1 cursor-pointer border-2">
+              <CardContent className="pt-6">
+                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
+                  <Users className="h-6 w-6 text-primary" />
+                </div>
+                <h3 className="font-semibold mb-1">Discussion Forum</h3>
+                <p className="text-sm text-muted-foreground">Join discussions</p>
+              </CardContent>
+            </Card>
+          </Link>
         </div>
 
         <div className="grid lg:grid-cols-3 gap-6">
