@@ -38,6 +38,9 @@ Generate quiz questions that are:
 - Multiple choice format with 4 options (A, B, C, D)
 - Include one correct answer and three plausible distractors
 - Provide a brief explanation for the correct answer
+- **Include a balanced mix of THEORY/CONCEPTUAL questions and APPLICATION/PRACTICAL questions**
+- Theory questions should test understanding of concepts, definitions, principles, and explanations
+- Application questions should test ability to apply knowledge, solve problems, and perform calculations
 
 Return the questions in valid JSON format as an array with this exact structure:
 [
