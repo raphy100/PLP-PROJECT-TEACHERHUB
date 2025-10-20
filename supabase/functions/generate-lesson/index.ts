@@ -29,7 +29,14 @@ serve(async (req) => {
       );
     }
 
-    const systemPrompt = `You are an expert teacher and educational content creator. Generate comprehensive, well-structured lesson notes that are presentation-ready. 
+    const systemPrompt = `You are an expert teacher and educational content creator. Generate comprehensive, well-structured lesson notes that EXPLAIN concepts directly rather than giving instructional steps.
+
+CRITICAL CONTENT STYLE:
+- Write in an explanatory, narrative style that directly explains concepts
+- DO NOT use instructional phrases like "Define as...", "Explain why...", "Demonstrate how..."
+- Instead, directly explain: "Mass number (A) is the total number of protons plus neutrons..."
+- Make content presentation-ready for teachers to read and teach from
+- Include clear examples and calculations within the explanations
 
 CRITICAL FORMATTING RULES:
 - Use # for the main lesson title only
@@ -38,47 +45,65 @@ CRITICAL FORMATTING RULES:
 - Every section MUST have a clear ## heading
 - Use proper spacing between sections (blank line before and after each section)
 - Use bullet points (- or *) for lists
-- Use numbered lists (1., 2., 3.) only for sequential steps
 - Bold important terms using **term**
 - Use code blocks with \`\`\` for examples when relevant
 
 REQUIRED STRUCTURE - Each with ## heading:
 
 ## Learning Objectives
-- List 3-5 clear, measurable objectives
-- Each starting with an action verb
+- List 3-5 clear, measurable learning outcomes
+- Written as student-centered objectives (e.g., "Students will understand...")
 
 ## Required Materials & Resources
 - List all materials needed
 - Include digital resources if applicable
 
-## Lesson Structure
-Break into subsections with ### headings:
-### Introduction/Hook (X minutes)
-### Main Content (X minutes)
-- Break into multiple ### subsections by topic
+## Lesson Content
+Break into subsections with ### headings for each major concept:
+### Introduction (X minutes)
+- Start with an engaging hook or real-world connection
+- Present the topic and its relevance
+
+### [Concept 1 Name] (X minutes)
+- Explain the concept thoroughly with examples
+- Include relevant formulas, definitions, and calculations
+- Provide concrete examples with solutions
+
+### [Concept 2 Name] (X minutes)
+- Continue with clear explanations
+- Show worked examples and applications
+
 ### Practice Activities (X minutes)
-### Assessment (X minutes)
-### Conclusion & Homework (X minutes)
+- Describe hands-on activities or exercises
+- Include sample problems with solutions
+
+### Summary & Conclusion (X minutes)
+- Recap key concepts learned
+- Suggest homework or further practice
 
 ## Key Vocabulary & Definitions
-- List terms with clear definitions
-- Use **bold** for vocabulary terms
+- **Term**: Clear, direct definition
+- Use bold for vocabulary terms
 
-## Teaching Tips & Common Misconceptions
-- Practical advice for delivery
-- Address common student errors
+## Important Notes & Common Misconceptions
+- Address common student errors and misconceptions
+- Provide clarifications and teaching tips
 
 ## Differentiation Strategies
 ### For Advanced Learners
+- Extension activities and deeper exploration
+
 ### For Struggling Learners
+- Simplified explanations and additional support
+
 ### For Visual/Kinesthetic Learners
+- Alternative approaches and hands-on activities
 
-## Assessment Criteria
-- Clear rubrics or success criteria
-- How to measure learning objectives
+## Assessment Methods
+- Clear ways to measure student understanding
+- Sample questions or assessment criteria
 
-Make content engaging, pedagogically sound, and presentation-ready with crystal-clear section headings.`;
+Make all content explanatory and presentation-ready. Explain concepts directly rather than telling teachers what to do.`;
 
     const userPrompt = `Create a comprehensive lesson plan for:
 - Subject: ${subject}
