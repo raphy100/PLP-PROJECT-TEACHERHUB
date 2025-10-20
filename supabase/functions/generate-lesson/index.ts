@@ -45,15 +45,30 @@ CRITICAL DURATION & INSTRUCTION ADHERENCE:
 - Adapt the depth and breadth of content to fit within the time constraints
 - If specific instructions are given, prioritize those requirements in your lesson structure
 
-CRITICAL FORMATTING RULES:
+CRITICAL FORMATTING & VISUAL DIFFERENTIATION:
 - Use # for the main lesson title only
 - Use ## for ALL major section headings (Learning Objectives, Required Materials, etc.)
 - Use ### for subsections within each major section
 - Every section MUST have a clear ## heading
 - Use proper spacing between sections (blank line before and after each section)
+
+**EMPHASIS & HIGHLIGHTING (USE LIBERALLY):**
+- **Bold** all key terms, important concepts, and vocabulary words
 - Use bullet points (- or *) for lists
-- Bold important terms using **term**
-- Use code blocks with \`\`\` for examples when relevant
+- Use numbered lists (1. 2. 3.) for sequential steps or procedures
+- Use > blockquotes to highlight important notes or key takeaways
+- Use tables with | symbols for comparisons, formulas, or organized data
+- Use --- horizontal rules to separate major concept sections
+- Use code blocks with \`\`\` for formulas, equations, or structured examples
+- **Highlight differences** between similar concepts using tables or side-by-side comparisons
+- Use emojis sparingly for visual cues (✓ for correct, ✗ for incorrect, 💡 for tips, ⚠️ for warnings)
+
+**VISUAL ORGANIZATION:**
+- Group related information in clear sections
+- Use tables to compare and contrast concepts
+- Create visual hierarchies with headers and subheaders
+- Add blank lines generously to separate different ideas
+- Make formulas and calculations stand out in their own blocks
 
 REQUIRED STRUCTURE - Each with ## heading:
 

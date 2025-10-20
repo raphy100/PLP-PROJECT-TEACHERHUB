@@ -29,6 +29,7 @@ const StudentQuiz = () => {
   const [selectedAnswers, setSelectedAnswers] = useState<Record<number, string>>({});
   const [showResults, setShowResults] = useState(false);
   const [isGenerating, setIsGenerating] = useState(false);
+  const [revealedAnswers, setRevealedAnswers] = useState<Record<number, boolean>>({});
 
   const handleGenerateQuiz = async () => {
     if (!subject || !topic) {
@@ -60,6 +61,7 @@ const StudentQuiz = () => {
       setCurrentQuestion(0);
       setSelectedAnswers({});
       setShowResults(false);
+      setRevealedAnswers({});
     } catch (error) {
       console.error("Error in quiz generation:", error);
       toast({
@@ -117,6 +119,10 @@ const StudentQuiz = () => {
     return questions.reduce((acc, q, idx) => {
       return acc + (selectedAnswers[idx] === q.correctAnswer ? 1 : 0);
     }, 0);
+  };
+
+  const toggleRevealAnswer = (idx: number) => {
+    setRevealedAnswers({ ...revealedAnswers, [idx]: !revealedAnswers[idx] });
   };
 
   return (
@@ -280,7 +286,7 @@ const StudentQuiz = () => {
                       <h3 className="font-semibold text-lg">Review Your Answers</h3>
                       {questions.map((q, idx) => (
                         <Card key={idx} className={selectedAnswers[idx] === q.correctAnswer ? "border-green-500" : "border-red-500"}>
-                          <CardContent className="pt-6 space-y-2">
+                          <CardContent className="pt-6 space-y-3">
                             <p className="font-medium">{q.question}</p>
                             <p className="text-sm">
                               <span className="font-medium">Your answer: </span>
@@ -290,11 +296,35 @@ const StudentQuiz = () => {
                             </p>
                             {selectedAnswers[idx] !== q.correctAnswer && (
                               <>
-                                <p className="text-sm">
-                                  <span className="font-medium">Correct answer: </span>
-                                  <span className="text-green-600">{q.correctAnswer}</span>
-                                </p>
-                                <p className="text-sm text-muted-foreground">{q.explanation}</p>
+                                {!revealedAnswers[idx] ? (
+                                  <Button 
+                                    onClick={() => toggleRevealAnswer(idx)} 
+                                    variant="outline" 
+                                    size="sm"
+                                    className="w-full"
+                                  >
+                                    Show Correct Answer
+                                  </Button>
+                                ) : (
+                                  <>
+                                    <p className="text-sm">
+                                      <span className="font-medium">Correct answer: </span>
+                                      <span className="text-green-600">{q.correctAnswer}</span>
+                                    </p>
+                                    <p className="text-sm text-muted-foreground bg-muted/50 p-3 rounded-md">
+                                      <span className="font-medium">Explanation: </span>
+                                      {q.explanation}
+                                    </p>
+                                    <Button 
+                                      onClick={() => toggleRevealAnswer(idx)} 
+                                      variant="ghost" 
+                                      size="sm"
+                                      className="w-full"
+                                    >
+                                      Hide Answer
+                                    </Button>
+                                  </>
+                                )}
                               </>
                             )}
                           </CardContent>
