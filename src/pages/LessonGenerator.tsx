@@ -134,10 +134,19 @@ const LessonGenerator = () => {
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="mathematics">Mathematics</SelectItem>
+                    <SelectItem value="english">English Language</SelectItem>
+                    <SelectItem value="literature">Literature in English</SelectItem>
                     <SelectItem value="physics">Physics</SelectItem>
                     <SelectItem value="chemistry">Chemistry</SelectItem>
                     <SelectItem value="biology">Biology</SelectItem>
-                    <SelectItem value="english">English</SelectItem>
+                    <SelectItem value="agriculture">Agricultural Science</SelectItem>
+                    <SelectItem value="economics">Economics</SelectItem>
+                    <SelectItem value="commerce">Commerce</SelectItem>
+                    <SelectItem value="accounting">Accounting</SelectItem>
+                    <SelectItem value="government">Government</SelectItem>
+                    <SelectItem value="civic">Civic Education</SelectItem>
+                    <SelectItem value="geography">Geography</SelectItem>
+                    <SelectItem value="computer">Computer Science</SelectItem>
                     <SelectItem value="history">History</SelectItem>
                   </SelectContent>
                 </Select>
@@ -155,19 +164,18 @@ const LessonGenerator = () => {
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="grade">Grade Level</Label>
+                  <Label htmlFor="grade">Class</Label>
                   <Select value={gradeLevel} onValueChange={setGradeLevel}>
                     <SelectTrigger>
-                      <SelectValue placeholder="Select grade" />
+                      <SelectValue placeholder="Select class" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="6">Grade 6</SelectItem>
-                      <SelectItem value="7">Grade 7</SelectItem>
-                      <SelectItem value="8">Grade 8</SelectItem>
-                      <SelectItem value="9">Grade 9</SelectItem>
-                      <SelectItem value="10">Grade 10</SelectItem>
-                      <SelectItem value="11">Grade 11</SelectItem>
-                      <SelectItem value="12">Grade 12</SelectItem>
+                      <SelectItem value="jss1">JSS 1</SelectItem>
+                      <SelectItem value="jss2">JSS 2</SelectItem>
+                      <SelectItem value="jss3">JSS 3</SelectItem>
+                      <SelectItem value="ss1">SS 1</SelectItem>
+                      <SelectItem value="ss2">SS 2</SelectItem>
+                      <SelectItem value="ss3">SS 3</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>

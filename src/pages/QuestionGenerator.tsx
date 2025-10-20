@@ -125,9 +125,20 @@ const QuestionGenerator = () => {
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="mathematics">Mathematics</SelectItem>
+                      <SelectItem value="english">English Language</SelectItem>
+                      <SelectItem value="literature">Literature in English</SelectItem>
                       <SelectItem value="physics">Physics</SelectItem>
                       <SelectItem value="chemistry">Chemistry</SelectItem>
                       <SelectItem value="biology">Biology</SelectItem>
+                      <SelectItem value="agriculture">Agricultural Science</SelectItem>
+                      <SelectItem value="economics">Economics</SelectItem>
+                      <SelectItem value="commerce">Commerce</SelectItem>
+                      <SelectItem value="accounting">Accounting</SelectItem>
+                      <SelectItem value="government">Government</SelectItem>
+                      <SelectItem value="civic">Civic Education</SelectItem>
+                      <SelectItem value="geography">Geography</SelectItem>
+                      <SelectItem value="computer">Computer Science</SelectItem>
+                      <SelectItem value="history">History</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
