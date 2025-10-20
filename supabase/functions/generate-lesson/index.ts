@@ -38,6 +38,13 @@ CRITICAL CONTENT STYLE:
 - Make content presentation-ready for teachers to read and teach from
 - Include clear examples and calculations within the explanations
 
+CRITICAL DURATION & INSTRUCTION ADHERENCE:
+- STRICTLY adhere to the specified lesson duration - all section timings must add up to the total duration
+- If duration is specified, ensure time allocations for each subsection are realistic and sum to the total
+- CAREFULLY follow any additional requirements or instructions provided by the teacher
+- Adapt the depth and breadth of content to fit within the time constraints
+- If specific instructions are given, prioritize those requirements in your lesson structure
+
 CRITICAL FORMATTING RULES:
 - Use # for the main lesson title only
 - Use ## for ALL major section headings (Learning Objectives, Required Materials, etc.)
