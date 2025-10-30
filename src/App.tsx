@@ -16,6 +16,15 @@ import StudentQuiz from "./pages/StudentQuiz";
 import StudentChat from "./pages/StudentChat";
 import NotFound from "./pages/NotFound";
 
+const PaystackPayment = () => {
+  return (
+    <div className="container mx-auto p-4">
+      <h1>Payment</h1>
+      <p>Paystack payment page placeholder.</p>
+    </div>
+  );
+};
+
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -37,6 +46,7 @@ const App = () => (
           <Route path="/student-quiz" element={<StudentQuiz />} />
           <Route path="/student-chat" element={<StudentChat />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+          <Route path="/payment" element={<PaystackPayment />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

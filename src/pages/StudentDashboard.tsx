@@ -14,6 +14,7 @@ import {
   GraduationCap,
   Home,
 } from "lucide-react";
+import PaystackPayment from "@/components/ui/PaystackPayment";
 
 const StudentDashboard = () => {
   const recentSubjects = [
@@ -217,6 +218,33 @@ const StudentDashboard = () => {
                 <Link to="/ai-tutor">
                   <Button className="w-full">Chat with AI Tutor</Button>
                 </Link>
+              </CardContent>
+            </Card>
+
+            {/* Premium Features Card */}
+            <Card className="border-2">
+              <CardContent className="pt-6">
+                <h3 className="font-semibold mb-4 text-center">Premium Features</h3>
+                <div className="space-y-4">
+                  <div className="flex items-center gap-2">
+                    <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
+                      <Award className="h-4 w-4 text-primary" />
+                    </div>
+                    <span className="text-sm">Unlimited AI Tutoring</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="w-8 h-8 rounded-lg bg-secondary/10 flex items-center justify-center">
+                      <BookOpen className="h-4 w-4 text-secondary" />
+                    </div>
+                    <span className="text-sm">Advanced Study Materials</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="w-8 h-8 rounded-lg bg-accent/10 flex items-center justify-center">
+                      <Users className="h-4 w-4 text-accent" />
+                    </div>
+                    <span className="text-sm">Priority Support</span>
+                  </div>
+                </div>
               </CardContent>
             </Card>
           </div>
