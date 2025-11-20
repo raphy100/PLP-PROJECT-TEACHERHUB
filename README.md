@@ -1,73 +1,215 @@
-# Welcome to your Lovable project
+# TeacherHub Project - README
 
-## Project info
+## 📘 Overview
 
-**URL**: https://lovable.dev/projects/3e0514f2-b61d-4ce3-a2f8-269add5086c9
+TeacherHub is an AI-powered teaching assistant platform that helps teachers automate academic tasks and helps students access personalized learning materials. The system generates lesson notes, exam-standard questions, and provides interactive practice for students.
 
-## How can I edit this code?
+---
 
-There are several ways of editing your application.
+## 🚀 Features
 
-**Use Lovable**
+### **For Teachers**
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/3e0514f2-b61d-4ce3-a2f8-269add5086c9) and start prompting.
+* AI-generated lesson notes aligned with curriculum
+* Automated question generation (objective, theory, practical)
+* Marking guide & answer key generation
+* Class & student management system
+* Printable/downloadable materials (PDF, Word)
 
-Changes made via Lovable will be committed automatically to this repo.
+### **For Students**
 
-**Use your preferred IDE**
+* Practice questions by topic or difficulty
+* Instant grading & feedback
+* Performance analytics
+* Access to summaries and study materials
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### **General Features**
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+* Role-based authentication (Teacher/Student)
+* Modern responsive UI (React + Tailwind)
+* AI Integration (OpenAI API or custom model)
+* Backend powered by Node.js or Django
+* MySQL/PostgreSQL database
 
-Follow these steps:
+---
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+## 🛠️ Technologies Used
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+### Frontend
 
-# Step 3: Install the necessary dependencies.
-npm i
+* React.js
+* TailwindCSS
+* ShadCN UI
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+### Backend
+
+* Node.js (Express) or Django
+* JWT Authentication
+
+### Database
+
+* MySQL or PostgreSQL
+
+### AI
+
+* OpenAI API / Custom NLP Models
+
+---
+
+## 📂 Project Structure
+
+```
+teacherhub/
+│── backend/
+│   ├── controllers/
+│   ├── routes/
+│   ├── models/
+│   ├── ai/
+│   └── server.js
+│
+│── frontend/
+│   ├── src/
+│   │   ├── pages/
+│   │   ├── components/
+│   │   ├── context/
+│   │   └── App.js
+│
+└── README.md
+```
+
+---
+
+## 🤖 AI Features Breakdown
+
+### ✔ Lesson Note Generator
+
+Teachers select:
+
+* Subject
+* Class level
+* Topic(s)
+* Format/template
+
+AI automatically generates:
+
+* Objectives
+* Lesson introduction
+* Content explanation
+* Teaching materials
+* Evaluation questions
+
+### ✔ Question Generator
+
+Generates:
+
+* Multiple choice questions
+* Theory/structured questions
+* Practical questions
+* Marking guides
+
+### ✔ Student Practice System
+
+Students can:
+
+* Practice questions
+* Receive instant feedback
+* Track scores and progress
+
+---
+
+## ⚙️ Installation & Setup
+
+### 1️⃣ Clone the Repository
+
+```
+git clone https://github.com/raphy100/PLP-PROJECT-TEACHERHUB.git
+cd teacherhub
+```
+
+### 2️⃣ Backend Setup
+
+```
+cd backend
+npm install
+npm start
+```
+
+### 3️⃣ Frontend Setup
+
+```
+cd frontend
+npm install
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+---
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## 📝 Environment Variables
 
-**Use GitHub Codespaces**
+* `PORT`
+* `DB_HOST`
+* `DB_USER`
+* `DB_PASSWORD`
+* `DB_NAME`
+* `JWT_SECRET`
+* `OPENAI_API_KEY`
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+---
 
-## What technologies are used for this project?
+## 📘 API Endpoints (Examples)
 
-This project is built with:
+### Auth
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+* POST `/api/auth/register`
+* POST `/api/auth/login`
 
-## How can I deploy this project?
+### AI Services
 
-Simply open [Lovable](https://lovable.dev/projects/3e0514f2-b61d-4ce3-a2f8-269add5086c9) and click on Share -> Publish.
+* POST `/api/ai/lesson-note`
+* POST `/api/ai/generate-questions`
 
-## Can I connect a custom domain to my Lovable project?
+### Students
 
-Yes, you can!
+* GET `/api/student/practice`
+* POST `/api/student/submit`
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+### Teachers
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+* POST `/api/teacher/create-class`
+* GET `/api/teacher/classes`
+
+---
+
+## 👨‍🏫 User Roles
+
+### Teacher
+
+* Manage classes
+* Create materials
+* Generate questions
+* Review analytics
+
+### Student
+
+* Practice questions
+* Study materials
+* Track performance
+
+---
+
+## 📄 License
+
+MIT License
+
+---
+
+## 🤝 Contributions
+
+Contributions are welcome! Submit PRs or open issues.
+
+---
+
+## 📬 Contact
+
+**Developer:** Egbune Raphael
+**Email:** raphyegbune@gmail.com
