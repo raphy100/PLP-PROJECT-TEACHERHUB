@@ -15,3 +15,17 @@ export const supabase = createClient<Database>(SUPABASE_URL, SUPABASE_PUBLISHABL
     autoRefreshToken: true,
   }
 });
+
+// Convenience helpers
+export const signOut = async () => {
+  return await supabase.auth.signOut();
+};
+
+export const getCurrentUser = async () => {
+  const { data } = await supabase.auth.getUser();
+  return data?.user ?? null;
+};
+
+export const onAuthStateChange = (callback: (event: any, session: any) => void) => {
+  return supabase.auth.onAuthStateChange(callback);
+};

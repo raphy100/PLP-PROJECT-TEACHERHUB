@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -19,11 +20,38 @@ const Signup = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    toast({
-      title: "Account created!",
-      description: `Welcome to LearnAI as a ${role}`,
-    });
-    navigate(role === "student" ? "/student-dashboard" : "/teacher-dashboard");
+    (async () => {
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
+      }, {
+        data: {
+          full_name: name,
+          role,
+        }
+      });
+
+      if (error) {
+        toast({
+          title: "Signup failed",
+          description: error.message,
+        });
+        return;
+      }
+
+      toast({
+        title: "Account created!",
+        description: `Welcome to LearnAI${name ? `, ${name}` : ""}`,
+      });
+
+      // After signup, Supabase may send a confirmation email. If a session exists, navigate, otherwise go to login.
+      const roleMeta = data.user?.user_metadata?.role || role;
+      if (data.session) {
+        navigate(roleMeta === "teacher" ? "/teacher-dashboard" : "/student-dashboard");
+      } else {
+        navigate("/login");
+      }
+    })();
   };
 
   return (

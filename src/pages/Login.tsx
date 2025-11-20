@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -15,12 +16,28 @@ const Login = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Placeholder login logic
-    toast({
-      title: "Login successful!",
-      description: "Welcome back to LearnAI",
-    });
-    navigate("/student-dashboard");
+    (async () => {
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
+
+      if (error) {
+        toast({
+          title: "Login failed",
+          description: error.message,
+        });
+        return;
+      }
+
+      toast({
+        title: "Login successful!",
+        description: `Welcome back${data.user?.user_metadata?.full_name ? `, ${data.user?.user_metadata?.full_name}` : ""}`,
+      });
+
+      const role = data.user?.user_metadata?.role || "student";
+      navigate(role === "teacher" ? "/teacher-dashboard" : "/student-dashboard");
+    })();
   };
 
   return (

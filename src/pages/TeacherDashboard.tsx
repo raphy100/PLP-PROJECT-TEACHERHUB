@@ -1,4 +1,6 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { getCurrentUser, signOut } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
@@ -27,6 +29,22 @@ const TeacherDashboard = () => {
     { action: "Student question in community", class: "Physics", time: "1 hour ago" },
     { action: "Lesson notes generated", class: "Chemistry", time: "2 hours ago" },
   ];
+
+  const navigate = useNavigate();
+  const [fullName, setFullName] = useState<string | null>(null);
+
+  useEffect(() => {
+    (async () => {
+      const user = await getCurrentUser();
+      const name = (user as any)?.user_metadata?.full_name || (user as any)?.email || null;
+      setFullName(name);
+    })();
+  }, []);
+
+  const handleLogout = async () => {
+    await signOut();
+    navigate("/login");
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-background to-muted">
@@ -65,16 +83,26 @@ const TeacherDashboard = () => {
               </Link>
             </div>
           </div>
-          <Avatar className="cursor-pointer">
-            <AvatarFallback className="bg-primary text-white">TD</AvatarFallback>
-          </Avatar>
+          <div className="flex items-center gap-4">
+            <div className="text-right mr-2">
+              <div className="text-sm">{fullName ?? "Guest"}</div>
+            </div>
+            <button onClick={handleLogout} className="text-sm text-red-600 hover:underline">
+              Logout
+            </button>
+            <Avatar className="cursor-pointer">
+              <AvatarFallback className="bg-primary text-white">
+                {fullName ? fullName.split(" ").map(n => n[0]).slice(0,2).join("") : "G"}
+              </AvatarFallback>
+            </Avatar>
+          </div>
         </div>
       </nav>
 
       <div className="container mx-auto px-4 py-8">
         {/* Welcome Section */}
         <div className="mb-8">
-          <h1 className="text-4xl font-bold mb-2">Welcome, Teacher! 👨‍🏫</h1>
+          <h1 className="text-4xl font-bold mb-2">Welcome{fullName ? `, ${fullName}` : ", Teacher"}! 👨‍🏫</h1>
           <p className="text-muted-foreground text-lg">Manage your classes and inspire students</p>
         </div>
 
